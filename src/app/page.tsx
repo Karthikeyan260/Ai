@@ -50,11 +50,6 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             Explore innovative teaching methods and effective educational strategies.
-            <br />
-            <br />
-            <b>Our Services:</b> Personalized learning plans, curriculum development, and teacher training programs.
-            <br />
-            <b>Future Implementations:</b> AI-driven student performance analysis and automated grading systems.
           </CardContent>
         </Card>
 
@@ -65,11 +60,6 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             Optimize patient care and explore advancements in medical treatments.
-            <br />
-            <br />
-            <b>Our Services:</b> Diagnostic assistance, treatment recommendations, and healthcare management solutions.
-            <br />
-            <b>Future Implementations:</b> AI-powered drug discovery and predictive health analytics.
           </CardContent>
         </Card>
 
@@ -80,11 +70,6 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             Make informed investment decisions and navigate complex financial landscapes.
-            <br />
-            <br />
-            <b>Our Services:</b> Financial planning, investment strategies, and risk management tools.
-            <br />
-            <b>Future Implementations:</b> AI-driven fraud detection and automated trading algorithms.
           </CardContent>
         </Card>
 
@@ -95,23 +80,8 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             Enhance customer experience and streamline retail operations.
-            <br />
-            <br />
-            <b>Our Services:</b> Customer behavior analysis, inventory optimization, and personalized marketing strategies.
-            <br />
-            <b>Future Implementations:</b> AI-powered supply chain management and automated customer service chatbots.
           </CardContent>
         </Card>
-      </div>
-
-      {/* Our Services Section */}
-      <div className="mt-12">
-        <h2 className="text-2xl font-semibold mb-4 text-primary">Our Services</h2>
-        <p className="text-muted-foreground">
-          We provide AI-driven expert consulting across diverse domains. Our smart expert system
-          helps you make informed decisions, optimize processes, and explore new opportunities
-          in Education, Healthcare, Finance, and Retail.
-        </p>
       </div>
 
       {/* Footer */}
@@ -125,3 +95,4 @@ export default function Home() {
     </div>
   );
 }
+

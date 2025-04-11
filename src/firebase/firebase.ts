@@ -32,3 +32,23 @@ if (!getApps().length) {
 }
 
 export default app;
+
+// Initialize Firebase Admin SDK for server-side
+let admin: any;
+
+if (typeof window === 'undefined') {
+  try {
+    admin = require('firebase-admin');
+    if (admin.apps.length === 0) {
+      const serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT || '');
+      admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+      console.log('Firebase Admin SDK initialized successfully.');
+    }
+  } catch (error) {
+    console.error('Error initializing Firebase Admin SDK:', error);
+  }
+}
+
+export const serverApp = admin?.app();

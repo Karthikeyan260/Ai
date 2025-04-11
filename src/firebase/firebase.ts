@@ -23,9 +23,13 @@ let firebaseConfig = {
 let app: FirebaseApp;
 
 if (!getApps().length) {
-  app = initializeApp(firebaseConfig);
-  if (typeof window !== 'undefined') {
+  try {
+    app = initializeApp(firebaseConfig);
+    if (typeof window !== 'undefined') {
       getAnalytics(app);
+    }
+  } catch (error) {
+    console.error("Firebase initialization error:", error);
   }
 } else {
   app = getApp(); // Get the existing app instance
@@ -40,14 +44,18 @@ if (typeof window === 'undefined') {
   try {
     admin = require('firebase-admin');
     if (admin.apps.length === 0) {
-      const serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT || '');
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-      });
-      console.log('Firebase Admin SDK initialized successfully.');
+      try {
+        const serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT || '{}');
+        admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount),
+        });
+        console.log('Firebase Admin SDK initialized successfully.');
+      } catch (adminInitError) {
+        console.error('Error initializing Firebase Admin SDK:', adminInitError);
+      }
     }
   } catch (error) {
-    console.error('Error initializing Firebase Admin SDK:', error);
+    console.error('Error requiring Firebase Admin SDK:', error);
   }
 }
 

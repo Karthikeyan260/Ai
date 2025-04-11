@@ -16,7 +16,7 @@ interface ChatMessage {
 
 interface ChatbotProps {
   domain: string;
-  domainImage: any;
+  domainImage: string;
 }
 
 async function getResponse(domain: string, query: string) {

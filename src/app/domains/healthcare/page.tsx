@@ -1,10 +1,10 @@
 'use client';
 
 import Chatbot from '@/components/chatbot';
-import HealthcareImage from '@/public/healthcare.png';
 
 const DOMAIN = 'Healthcare';
+const HEALTHCARE_IMAGE_URL = 'https://picsum.photos/50/50';
 
 export default function HealthcarePage() {
-  return <Chatbot domain={DOMAIN} domainImage={HealthcareImage} />;
+  return <Chatbot domain={DOMAIN} domainImage={HEALTHCARE_IMAGE_URL} />;
 }

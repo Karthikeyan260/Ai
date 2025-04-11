@@ -7,24 +7,41 @@ import {Section} from 'lucide-react';
 import {Heart} from 'lucide-react';
 import {Currency} from 'lucide-react';
 import {ShoppingCart} from 'lucide-react';
+import {useEffect, useState} from 'react';
 
 export default function Home() {
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4 text-primary text-center">
-        AI-Driven Consulting
-      </h1>
-      <p className="text-lg mb-8 text-muted-foreground text-center">
-        A Smart Expert System for diverse domains
-      </p>
-      <div className="flex justify-center space-x-4 mb-8">
+    <div className="container mx-auto p-4 relative">
+      {/* Sign In/Sign Up Buttons in the top right corner */}
+      <div className="absolute top-4 right-4 flex space-x-2">
         <Button onClick={() => router.push('/sign-in')}>Sign In</Button>
         <Button variant="secondary" onClick={() => router.push('/sign-up')}>
           Sign Up
         </Button>
       </div>
+
+      {/* Title and Caption */}
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-4 text-primary">
+          AI-Driven Consulting
+        </h1>
+        <p className="text-lg mb-8 text-muted-foreground">
+          A Smart Expert System for diverse domains
+        </p>
+      </div>
+
+      {/* Domain Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="cursor-pointer hover:shadow-md transition duration-200" onClick={() => router.push('/domains/education')}>
           <CardHeader>
@@ -66,6 +83,25 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Our Services Section */}
+      <div className="mt-12">
+        <h2 className="text-2xl font-semibold mb-4 text-primary">Our Services</h2>
+        <p className="text-muted-foreground">
+          We provide AI-driven expert consulting across diverse domains. Our smart expert system
+          helps you make informed decisions, optimize processes, and explore new opportunities
+          in Education, Healthcare, Finance, and Retail.
+        </p>
+      </div>
+
+      {/* Footer */}
+      <footer className="mt-12 py-4 text-center text-muted-foreground border-t">
+        © {new Date().getFullYear()} DomainSage. All rights reserved.
+        <p className="mt-2">
+          DomainSage is a cutting-edge platform designed to provide expert consulting services
+          powered by artificial intelligence.
+        </p>
+      </footer>
     </div>
   );
 }

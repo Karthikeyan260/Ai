@@ -50,42 +50,47 @@ export default function Chatbot({domain}: ChatbotProps) {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4 text-primary text-center">
-        {domain} Domain
-      </h1>
-      <Card className="w-full max-w-3xl mx-auto shadow-md">
-        <CardHeader>
-          <CardTitle>{domain} Chatbot</CardTitle>
-          <CardDescription>
-            Get expert guidance in the {domain} domain.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {response && (
+    <>
+      <div className="container mx-auto p-4">
+        <h1 className="text-4xl font-bold mb-4 text-primary text-center">
+          {domain} Domain
+        </h1>
+        <Card className="w-full max-w-3xl mx-auto shadow-md">
+          <CardHeader>
+            <CardTitle>{domain} Chatbot</CardTitle>
+            <CardDescription>
+              Get expert guidance in the {domain} domain.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="mb-4">
-              <p className="font-medium">You: {query}</p>
-              <p className="text-sm text-muted-foreground">
-                DomainSage: {response}
-              </p>
+              {response && (
+                <div>
+                  <p className="font-medium">You: {query}</p>
+                  <p className="text-sm text-muted-foreground">
+                    DomainSage: {response}
+                  </p>
+                </div>
+              )}
             </div>
-          )}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid gap-2">
-              <Label htmlFor="query">Your Query</Label>
-              <Textarea
-                id="query"
-                placeholder="Enter your query here"
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-              />
-            </div>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Generating...' : 'Generate Response'}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid gap-2">
+                <Label htmlFor="query">Your Query</Label>
+                <Textarea
+                  id="query"
+                  placeholder="Enter your query here"
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                />
+              </div>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? 'Generate Response' : 'Generate Response'}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 }
+

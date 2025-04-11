@@ -3,7 +3,7 @@
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {useRouter} from 'next/navigation';
-import {School} from 'lucide-react';
+import {Section} from 'lucide-react';
 import {Heart} from 'lucide-react';
 import {Currency} from 'lucide-react';
 import {ShoppingCart} from 'lucide-react';
@@ -28,7 +28,7 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="cursor-pointer hover:shadow-md transition duration-200" onClick={() => router.push('/domains/education')}>
           <CardHeader>
-            <CardTitle><School className="mr-2 inline-block h-5 w-5" />Education</CardTitle>
+            <CardTitle><Section className="mr-2 inline-block h-5 w-5" />Education</CardTitle>
             <CardDescription>AI consulting for the education sector</CardDescription>
           </CardHeader>
           <CardContent>

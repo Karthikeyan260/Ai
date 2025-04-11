@@ -7,6 +7,7 @@ import {Textarea} from '@/components/ui/textarea';
 import {useState, useRef, useEffect} from 'react';
 import {useToast} from '@/hooks/use-toast';
 import {ScrollArea} from "@/components/ui/scroll-area";
+import Image from 'next/image';
 
 interface ChatMessage {
   text: string;
@@ -15,6 +16,7 @@ interface ChatMessage {
 
 interface ChatbotProps {
   domain: string;
+  domainImage: any;
 }
 
 async function getResponse(domain: string, query: string) {
@@ -26,7 +28,7 @@ async function getResponse(domain: string, query: string) {
   return response.adaptedResponse;
 }
 
-export default function Chatbot({domain}: ChatbotProps) {
+export default function Chatbot({domain, domainImage}: ChatbotProps) {
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +83,10 @@ export default function Chatbot({domain}: ChatbotProps) {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-semibold text-primary text-center mb-4">{domain} Consulting</h1>
+      <h1 className="text-2xl font-semibold text-primary text-center mb-4">
+        <Image src={domainImage} alt={`${domain} Logo`} width={50} height={50} className="inline-block mr-2" />
+        {domain} Consulting
+      </h1>
       <Card className="w-full max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle>Ask me anything about {domain}!</CardTitle>

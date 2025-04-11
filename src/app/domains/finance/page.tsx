@@ -3,27 +3,25 @@
 import {adaptResponseToNeed} from '@/ai/flows/adapt-response-to-need';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
-import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
 import {Textarea} from '@/components/ui/textarea';
 import {useEffect, useState} from 'react';
 import {useToast} from '@/hooks/use-toast';
 import {ScrollArea} from '@/components/ui/scroll-area';
+import {Label} from "@/components/ui/label";
 
 const DOMAIN = 'Finance';
 
-async function getResponse(query: string, userNeed: string) {
+async function getResponse(query: string) {
   const response = await adaptResponseToNeed({
     domain: DOMAIN,
     query: query,
-    userNeed: userNeed,
+    userNeed: 'General Consulting', // Default user need
   });
   return response.adaptedResponse;
 }
 
 export default function FinancePage() {
   const [query, setQuery] = useState('');
-  const [userNeed, setUserNeed] = useState('');
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const {toast} = useToast();
@@ -35,15 +33,14 @@ export default function FinancePage() {
     if (response) {
       setChatHistory(prev => [...prev, {query, response}]);
       setQuery('');
-      setUserNeed('');
     }
-  }, [response, query, userNeed]);
+  }, [response, query]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const botResponse = await getResponse(query, userNeed);
+      const botResponse = await getResponse(query);
       setResponse(botResponse);
       toast({
         title: 'Response Generated',
@@ -79,7 +76,7 @@ export default function FinancePage() {
               {chatHistory.map((item, index) => (
                 <div key={index} className="space-y-1">
                   <p className="font-medium">
-                    You: {item.query} (Need: {userNeed})
+                    You: {item.query}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     DomainSage: {item.response}
@@ -96,16 +93,6 @@ export default function FinancePage() {
                 placeholder="Enter your query here"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="userNeed">What do you need from the bot?</Label>
-              <Input
-                type="text"
-                id="userNeed"
-                placeholder="Describe what you need"
-                value={userNeed}
-                onChange={e => setUserNeed(e.target.value)}
               />
             </div>
             <Button type="submit" disabled={isLoading}>

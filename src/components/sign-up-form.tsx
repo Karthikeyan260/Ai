@@ -50,6 +50,14 @@ export function SignUpForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="grid gap-4">
+           <div className="grid gap-2">
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              placeholder="Your Name"
+              type="text"
+            />
+          </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -58,6 +66,14 @@ export function SignUpForm() {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
+            />
+          </div>
+           <div className="grid gap-2">
+            <Label htmlFor="phone">Phone Number</Label>
+            <Input
+              id="phone"
+              placeholder="Your Phone Number"
+              type="tel"
             />
           </div>
           <div className="grid gap-2">
@@ -74,6 +90,9 @@ export function SignUpForm() {
           </Button>
           {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
+           <p className="mt-4 text-sm text-muted-foreground">
+            Or sign up with Gmail
+          </p>
       </CardContent>
     </Card>
   );

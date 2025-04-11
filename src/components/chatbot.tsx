@@ -4,9 +4,8 @@ import {adaptResponseToNeed} from '@/ai/flows/adapt-response-to-need';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Textarea} from '@/components/ui/textarea';
-import {useState} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import {useToast} from '@/hooks/use-toast';
-import {Label} from "@/components/ui/label";
 import {ScrollArea} from "@/components/ui/scroll-area";
 
 interface ChatMessage {
@@ -32,9 +31,14 @@ export default function Chatbot({domain}: ChatbotProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const {toast} = useToast();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    // Focus the textarea when the component mounts
+    textareaRef.current?.focus();
+  }, []);
+
+  const sendMessage = async () => {
     if (!query.trim()) return;
 
     setIsLoading(true);
@@ -59,6 +63,19 @@ export default function Chatbot({domain}: ChatbotProps) {
       });
     } finally {
       setIsLoading(false);
+      textareaRef.current?.focus();
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendMessage();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
     }
   };
 
@@ -86,13 +103,15 @@ export default function Chatbot({domain}: ChatbotProps) {
           </ScrollArea>
           <form onSubmit={handleSubmit} className="flex space-x-2">
             <Textarea
+              ref={textareaRef}
               placeholder={`Enter your question about ${domain} here...`}
               value={query}
               onChange={e => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
               rows={1}
               className="flex-grow rounded-md border shadow-sm focus:ring-primary focus:border-primary"
             />
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading} onClick={handleSubmit}>
               {isLoading ? 'Generating...' : 'Send'}
             </Button>
           </form>

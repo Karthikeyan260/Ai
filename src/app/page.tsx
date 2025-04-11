@@ -84,6 +84,37 @@ export default function Home() {
         </Card>
       </div>
 
+      {/* Our Services Section */}
+      <section className="mt-12">
+        <h2 className="text-2xl font-semibold mb-4 text-primary">Our Services</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <h3 className="font-semibold">Education</h3>
+            <p className="text-muted-foreground">
+              We provide AI-driven insights into curriculum development, personalized learning, and student performance analysis.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-semibold">Healthcare</h3>
+            <p className="text-muted-foreground">
+              Our AI solutions assist in diagnostics, treatment planning, and healthcare management to improve patient outcomes.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-semibold">Finance</h3>
+            <p className="text-muted-foreground">
+              We offer AI-powered tools for financial forecasting, risk assessment, and investment strategies to optimize financial performance.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-semibold">Retail</h3>
+            <p className="text-muted-foreground">
+              Our AI services help retailers optimize inventory, personalize customer experiences, and improve supply chain efficiency.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="mt-12 py-4 text-center text-muted-foreground border-t">
         © {new Date().getFullYear()} DomainSage. All rights reserved.
@@ -95,4 +126,3 @@ export default function Home() {
     </div>
   );
 }
-

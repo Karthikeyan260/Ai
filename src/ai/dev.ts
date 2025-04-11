@@ -1,1 +1,3 @@
-// Flows will be imported for their side effects in this file.
+import '@/ai/flows/summarize-knowledge-gap.ts';
+import '@/ai/flows/generate-consulting-prompts.ts';
+import '@/ai/flows/adapt-response-to-need.ts';

@@ -1,67 +1,15 @@
 'use client';
 
-import {adaptResponseToNeed} from '@/ai/flows/adapt-response-to-need';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
-import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
-import {Textarea} from '@/components/ui/textarea';
-import {useEffect, useState} from 'react';
-import {useToast} from '@/hooks/use-toast';
-import {ScrollArea} from '@/components/ui/scroll-area';
 import {useRouter} from 'next/navigation';
-
-const DOMAIN = 'General'; // Consolidated to a single, adaptable domain
-
-async function getResponse(query: string, userNeed: string) {
-  const response = await adaptResponseToNeed({
-    domain: DOMAIN,
-    query: query,
-    userNeed: userNeed,
-  });
-  return response.adaptedResponse;
-}
+import {School} from 'lucide-react';
+import {Heart} from 'lucide-react';
+import {Currency} from 'lucide-react';
+import {ShoppingCart} from 'lucide-react';
 
 export default function Home() {
-  const [query, setQuery] = useState('');
-  const [userNeed, setUserNeed] = useState('');
-  const [response, setResponse] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const {toast} = useToast();
-  const [chatHistory, setChatHistory] = useState<
-    {query: string; response: string}[]
-  >([]);
   const router = useRouter();
-
-  useEffect(() => {
-    if (response) {
-      setChatHistory(prev => [...prev, {query, response}]);
-      setQuery('');
-      setUserNeed('');
-    }
-  }, [response, query, userNeed]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const botResponse = await getResponse(query, userNeed);
-      setResponse(botResponse);
-      toast({
-        title: 'Response Generated',
-        description: 'The chatbot has generated a response.',
-      });
-    } catch (error: any) {
-      console.error('Error generating response:', error);
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: error.message || 'Failed to generate response.',
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="container mx-auto p-4">
@@ -77,54 +25,48 @@ export default function Home() {
           Sign Up
         </Button>
       </div>
-      <Card className="w-full max-w-3xl mx-auto">
-        <CardHeader>
-          <CardTitle>DomainSage Chatbot</CardTitle>
-          <CardDescription>
-            Get expert guidance across various domains.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-[400px] mb-4">
-            <div className="flex flex-col space-y-2">
-              {chatHistory.map((item, index) => (
-                <div key={index} className="space-y-1">
-                  <p className="font-medium">
-                    You: {item.query} (Need: {userNeed})
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    DomainSage: {item.response}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid gap-2">
-              <Label htmlFor="query">Your Query</Label>
-              <Textarea
-                id="query"
-                placeholder="Enter your query here"
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="userNeed">What do you need from the bot?</Label>
-              <Input
-                type="text"
-                id="userNeed"
-                placeholder="Describe what you need"
-                value={userNeed}
-                onChange={e => setUserNeed(e.target.value)}
-              />
-            </div>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Generating...' : 'Generate Response'}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="cursor-pointer" onClick={() => router.push('/domains/education')}>
+          <CardHeader>
+            <CardTitle><School className="mr-2 inline-block h-5 w-5" />Education</CardTitle>
+            <CardDescription>AI consulting for the education sector</CardDescription>
+          </CardHeader>
+          <CardContent>
+            Get advice on teaching, learning, and educational administration.
+          </CardContent>
+        </Card>
+
+        <Card className="cursor-pointer" onClick={() => router.push('/domains/healthcare')}>
+          <CardHeader>
+            <CardTitle><Heart className="mr-2 inline-block h-5 w-5" />Healthcare</CardTitle>
+            <CardDescription>AI consulting for the healthcare sector</CardDescription>
+          </CardHeader>
+          <CardContent>
+            Get advice on patient care, medical research, and healthcare management.
+          </CardContent>
+        </Card>
+
+        <Card className="cursor-pointer" onClick={() => router.push('/domains/finance')}>
+          <CardHeader>
+            <CardTitle><Currency className="mr-2 inline-block h-5 w-5" />Finance</CardTitle>
+            <CardDescription>AI consulting for the finance sector</CardDescription>
+          </CardHeader>
+          <CardContent>
+            Get advice on investment, banking, and financial planning.
+          </CardContent>
+        </Card>
+
+        <Card className="cursor-pointer" onClick={() => router.push('/domains/retail')}>
+          <CardHeader>
+            <CardTitle><ShoppingCart className="mr-2 inline-block h-5 w-5" />Retail</CardTitle>
+            <CardDescription>AI consulting for the retail sector</CardDescription>
+          </CardHeader>
+          <CardContent>
+            Get advice on sales, marketing, and customer service.
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
+

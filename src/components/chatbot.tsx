@@ -4,9 +4,8 @@ import {adaptResponseToNeed} from '@/ai/flows/adapt-response-to-need';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Textarea} from '@/components/ui/textarea';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useToast} from '@/hooks/use-toast';
-import {ScrollArea} from '@/components/ui/scroll-area';
 import {Label} from "@/components/ui/label";
 
 interface ChatbotProps {
@@ -27,16 +26,6 @@ export default function Chatbot({domain}: ChatbotProps) {
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const {toast} = useToast();
-  const [chatHistory, setChatHistory] = useState<
-    {query: string; response: string}[]
-  >([]);
-
-  useEffect(() => {
-    if (response) {
-      setChatHistory(prev => [...prev, {query, response}]);
-      setQuery('');
-    }
-  }, [response, query]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,20 +62,14 @@ export default function Chatbot({domain}: ChatbotProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="h-[400px] mb-4">
-            <div className="flex flex-col space-y-2">
-              {chatHistory.map((item, index) => (
-                <div key={index} className="space-y-1">
-                  <p className="font-medium">
-                    You: {item.query}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    DomainSage: {item.response}
-                  </p>
-                </div>
-              ))}
+          {response && (
+            <div className="mb-4">
+              <p className="font-medium">You: {query}</p>
+              <p className="text-sm text-muted-foreground">
+                DomainSage: {response}
+              </p>
             </div>
-          </ScrollArea>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid gap-2">
               <Label htmlFor="query">Your Query</Label>

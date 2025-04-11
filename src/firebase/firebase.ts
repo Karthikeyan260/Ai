@@ -1,24 +1,34 @@
 'use client';
 
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, FirebaseApp, getApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAJM-etfwsw8zLayFEY6xZo0i5OjMPrpRE",
-  authDomain: "ai-consultant-743ea.firebaseapp.com",
-  projectId: "ai-consultant-743ea",
-  storageBucket: "ai-consultant-743ea.firebasestorage.app",
-  messagingSenderId: "381430105069",
-  appId: "1:381430105069:web:c568304715bd9ade07dde4",
-  measurementId: "G-7DF611DZDY"
+
+let firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Check if Firebase is already initialized
+let app: FirebaseApp;
+
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+  if (typeof window !== 'undefined') {
+      getAnalytics(app);
+  }
+} else {
+  app = getApp(); // Get the existing app instance
+}
 
 export default app;

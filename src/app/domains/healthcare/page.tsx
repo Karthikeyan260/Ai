@@ -34,7 +34,7 @@ export default function HealthcarePage() {
       setChatHistory(prev => [...prev, {query, response}]);
       setQuery('');
     }
-  }, [response, query]);
+  }, [response]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,15 +1,16 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, sans-serif;
 }
 
 @layer base {
   :root {
-    --background: 220 20% 94%; /* Light gray background */
-    --foreground: 220 30% 8%; /* Dark gray text */
+    --background: 220 20% 98%; /* Softer light gray background */
+    --foreground: 220 30% 10%; /* Darker gray text for better contrast */
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;

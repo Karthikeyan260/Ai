@@ -92,24 +92,32 @@ export default function Home() {
             <h3 className="font-semibold">Education</h3>
             <p className="text-muted-foreground">
               We provide AI-driven insights into curriculum development, personalized learning, and student performance analysis.
+              <br />
+              Future implementations include AI-powered grading systems and automated report generation.
             </p>
           </div>
           <div>
             <h3 className="font-semibold">Healthcare</h3>
             <p className="text-muted-foreground">
               Our AI solutions assist in diagnostics, treatment planning, and healthcare management to improve patient outcomes.
+              <br />
+              Future implementations involve predictive analysis for disease outbreaks and AI-assisted robotic surgery.
             </p>
           </div>
           <div>
             <h3 className="font-semibold">Finance</h3>
             <p className="text-muted-foreground">
               We offer AI-powered tools for financial forecasting, risk assessment, and investment strategies to optimize financial performance.
+              <br />
+              Future implementations include AI-driven fraud detection systems and personalized financial advising.
             </p>
           </div>
           <div>
             <h3 className="font-semibold">Retail</h3>
             <p className="text-muted-foreground">
               Our AI services help retailers optimize inventory, personalize customer experiences, and improve supply chain efficiency.
+              <br />
+              Future implementations include AI-powered inventory management and personalized shopping experiences using AR/VR.
             </p>
           </div>
         </div>

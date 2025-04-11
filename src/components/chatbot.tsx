@@ -65,7 +65,7 @@ export default function Chatbot({domain}: ChatbotProps) {
       <h1 className="text-4xl font-bold mb-4 text-primary text-center">
         {domain} Domain
       </h1>
-      <Card className="w-full max-w-3xl mx-auto">
+      <Card className="w-full max-w-3xl mx-auto shadow-md">
         <CardHeader>
           <CardTitle>{domain} Chatbot</CardTitle>
           <CardDescription>

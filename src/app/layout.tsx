@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'DomainSage',
+  title: 'AI-DRIVEN CONSULTING',
   description: 'AI-powered expert consulting system',
 };
 
